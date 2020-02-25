@@ -14,22 +14,20 @@ public static class StatsGenerator
 {
     public static void InitialStats(Stats Stats)
     {
-        int TotalPoints = 10
+        int TotalPoints = 10;
 
-        Int Stats.style = Random.Range(1, TotalPoints);
-        TotalPoints -= Stats.Style
+        Stats.style = Random.Range(1, TotalPoints);
+        TotalPoints -= Stats.style;
 
-        Int Stats.luck = Random.Range(1, TotalPoints);
-        TotalPoints -= Stats.Luck
+        Stats.luck = Random.Range(1, TotalPoints);
+        TotalPoints -= Stats.luck;
 
-        Int Stats.rhythm = TotalPoints
-
-
+        Stats.rhythm = TotalPoints;
     }
 
     public static void AssignUnusedPoints(Stats Stats, int points)
     {
-        Int Stats.Luck = Random.Range(1.f, 10.f);
-        Int Stats.Rhythm = Random.Range(1.f, 10.f);
+        Stats.luck = Random.Range(1, 10);
+        Stats.rhythm = Random.Range(1, 10);
     }
 }

@@ -15,6 +15,7 @@ using UnityEngine;
 /// </summary>
 public class XPHandler : MonoBehaviour
 {
+    
     private void OnEnable()
     {
         GameEvents.OnBattleConclude += GainXP;
@@ -22,45 +23,36 @@ public class XPHandler : MonoBehaviour
 
     private void OnDisable()
     {
+        GameEvents.OnBattleConclude -= GainXP;
     }
 
     public void GainXP(BattleResultEventData data)
     {
-        Int XPgained  = 0
+        int XPgained  = 0;
 
-        if (Formula > 0) //win
+        if (data.outcome > 0) //win
         {
-            Int XPgained = Random.Range(2, 5);
-            GameEvents.PlayerXPGain(Xpgained);
+            XPgained = Random.Range(2, 5);
+            GameEvents.PlayerXPGain(XPgained);
         }
         
-        else (Formula = 0) //tie
+        else if (data.outcome == 0) //tie
         {
-            Int XPgained = Random.Range(0, 2);
-            GameEvents.PlayerXPGain(Xpgained);
-        }
-        
-        else (Formula < 0) //lose
-        {
-        
+            XPgained = Random.Range(0, 2);
+            GameEvents.PlayerXPGain(XPgained);
         }
 
-        XP += XPgained
+        data.player.xp += XPgained;
         //GameEvents.PlayerLevelUp(1) for levelup animation
-    };
-
-    private void OnEnable()
-    {
-        Level = 1;
     }
 
-    private void OnDisable()
+    public void LevelManager(BattleResultEventData data)
     {
-    }
-
-    public void LevelManage(BattleResultEventData data)
-    {
-
-        
+        if (data.player.xp > 10)
+        {
+            GameEvents.PlayerLevelUp(1);
+            data.player.xp = 0;
+            data.player.level += 1;
+        }
     }
 }

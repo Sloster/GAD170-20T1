@@ -17,12 +17,12 @@ public static class BattleHandler
     {
         //This needs to be replaced with some actual battle logic, at present 
         // we just award the maximum possible win to the player
-        Float Outcome = Random.Range(-1.0f, 1.0f);
+        float Outcome = Random.Range(-1.0f, 1.0f);
 
-        Float Formula = Outcome * data.player.style - data.player.luck / data.player.rhythm;
+        float Formula = Outcome * data.player.style - data.player.luck / data.player.rhythm;
         Formula = Mathf.Clamp(Formula, -1.0f, 1.0f);
 
-        var results = new BattleResultEventData(data.player, data.npc, outcome);
+        var results = new BattleResultEventData(data.player, data.npc, Formula);
 
         GameEvents.FinishedBattle(results);
     }
